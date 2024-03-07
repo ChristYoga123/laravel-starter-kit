@@ -378,7 +378,8 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
+                        <img src="https://ui-avatars.com/api/?name={{ auth('admin')->user()->name }}" alt
+                            class="h-auto rounded-circle" />
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -392,8 +393,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-semibold d-block">{{ auth('admin')->user()->name }}</span>
+                                    <small class="text-muted">{{ auth('admin')->user()->getRoleNames()[0] }}</small>
                                 </div>
                             </div>
                         </a>
@@ -448,10 +449,10 @@
                         <div class="dropdown-divider"></div>
                     </li> --}}
                     <li>
-                        <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                        <button class="dropdown-item" type="button" onclick="logout()">
                             <i class="ti ti-logout me-2 ti-sm"></i>
                             <span class="align-middle">Log Out</span>
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </li>
@@ -466,3 +467,20 @@
         <i class="ti ti-x ti-sm search-toggler cursor-pointer"></i>
     </div>
 </nav>
+
+@push('scripts')
+    <script>
+        function logout() {
+            $.ajax({
+                url: "{{ route('admin.logout') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function() {
+                    window.location.href = "{{ route('admin.login') }}"
+                }
+            })
+        }
+    </script>
+@endpush
