@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__ . '/auth.php';
 Route::get('/', function () {
     return view('welcome');
+});
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('dashboard', function () {
+        return view('pages.admin.dashboard.index');
+    })->name('dashboard.index');
 });
