@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
     Route::get('dashboard', function () {
         return view('pages.admin.dashboard.index');
     })->name('dashboard.index');
+
+    // Settings Route
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::resource('administrators', AdminController::class);
+    });
 });
