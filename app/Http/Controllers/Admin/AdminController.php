@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function index(AdminDataTable $dataTable)
     {
         $this->confirmAuthorization('index');
-        return $dataTable->render('pages.admin.administrators.index', [
+        return $dataTable->render('pages.admin..settings.administrators.index', [
             'title' => 'Administrators'
         ]);
     }
@@ -31,7 +31,7 @@ class AdminController extends Controller
     public function create()
     {
         $this->confirmAuthorization('create');
-        return view('pages.admin.administrators.create', [
+        return view('pages.admin..settings.administrators.create', [
             'title' => 'Create Administrator',
             'roles' => Role::all()
         ]);
@@ -80,7 +80,7 @@ class AdminController extends Controller
     public function edit(Admin $administrator)
     {
         $this->confirmAuthorization('edit');
-        return view('pages.admin.administrators.edit', [
+        return view('pages.admin..settings.administrators.edit', [
             'title' => 'Edit Administrator',
             'admin' => $administrator,
             'roles' => Role::all()
